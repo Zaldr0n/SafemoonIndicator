@@ -16,7 +16,6 @@ Name=SafemoonIndicator
 Exec=$HOME/SafemoonIndicator/SafemoonIndicator
 Icon=$HOME/SafemoonIndicator/resources/app/icon.png
 Type=Application
-Terminal=true
 " > $HOME/.config/autostart/SafemoonIndicator.desktop
 chmod +x $HOME/.config/autostart/SafemoonIndicator.desktop
 

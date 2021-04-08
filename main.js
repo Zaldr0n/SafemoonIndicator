@@ -120,7 +120,7 @@ app.whenReady().then(() => {
 	win = new BrowserWindow({
 		width: 600,
 		height: 600,
-		fullscreen: false,
+		fullscreen: true,
 		webPreferences: {
 			nodeIntegration: true,
 			contextIsolation: false
