@@ -1,6 +1,7 @@
 /********************************** Imports **********************************************/
 const electron = require("electron");
-const jQuery = require("./jquery.min.js")
+const jQuery = require("./jquery.min.js");
+const config = require("./config.js");
 
 /********************************** Helper functions **********************************************/
 function toFixed(x) {
