@@ -84,25 +84,29 @@ try {
 }
 var ipc = require('electron').ipcRenderer;
 
-function changeCurrency(currency) {
+function changeCurrency(currency, callback) {
 	$$(".sc-10dhc7s-0").each(function(index, element) {
 		if(index == 1) {
 			element.click();
 			return;
 		}
 	});
-	$$(".bBcNle").click();
-	$$("span.cmc-currency-picker--label").each(function(index, element) {
-		if(element.innerText == currency) {
-			element.click();
-			return;
-		}
-	});
+	setTimeout(() => {
+		$$(".bBcNle").click();
+		$$("span.cmc-currency-picker--label").each(function(index, element) {
+			if(element.innerText == currency) {
+				element.click();
+				return;
+			}
+		});
+		if(callback != undefined) callback();
+	}, 50);
 }
 function sendPrice(currency) {
-	changeCurrency(currency);
-	let currentPrice = document.getElementsByClassName("priceValue___11gHJ")[0].innerText.substring(1);
-	ipc.send('newprice', currentPrice);
+	changeCurrency(currency, () => {
+		let currentPrice = document.getElementsByClassName("priceValue___11gHJ")[0].innerText.substring(1);
+		ipc.send('newprice', currentPrice);
+	});
 }
 changeCurrency("USD");
 `;
@@ -114,7 +118,7 @@ app.whenReady().then(() => {
 		cmcWin = new BrowserWindow({
 			width: 480,
 			height: 320,
-			show: false,
+			show: true,
 			webPreferences: {
 				nodeIntegration: true,
 				contextIsolation: false
