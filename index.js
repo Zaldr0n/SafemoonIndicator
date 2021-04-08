@@ -1,12 +1,14 @@
 /********************************** Imports **********************************************/
 const electron = require("electron");
-const config = require("./config.js");
 
 var jQuery = undefined;
+var config =  undefined;
 try {
 	jQuery = require('./resources/app/jquery.min.js');
+	config = require("./resources/app/config.js");
 } catch(err) {
 	jQuery = require("./jquery.min.js");
+	config = require("./config.js");
 }
 
 /********************************** Helper functions **********************************************/

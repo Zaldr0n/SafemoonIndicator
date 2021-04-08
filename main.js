@@ -118,7 +118,7 @@ app.whenReady().then(() => {
 		cmcWin = new BrowserWindow({
 			width: 480,
 			height: 320,
-			show: true,
+			show: false,
 			webPreferences: {
 				nodeIntegration: true,
 				contextIsolation: false

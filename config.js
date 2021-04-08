@@ -10,3 +10,4 @@ const chartDataPoints = 720;
 //don't edit this
 exports.apiKey = apiKey;
 exports.updateInterval = updateInterval;
+exports.chartDataPoints = chartDataPoints;
