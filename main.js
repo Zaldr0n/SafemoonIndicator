@@ -76,10 +76,21 @@ function priceLoop() {
 /********************************** Create window **********************************************/
 //script for coinmarketcap injection
 var injectionScript = `
-const $$ = require('./jquery.min.js');
+var $$ = undefined;
+try {
+	$$ = require('./resources/app/jquery.min.js');
+} catch(err) {
+	$$ = require('./jquery.min.js');
+}
 var ipc = require('electron').ipcRenderer;
 
 function changeCurrency(currency) {
+	$$(".sc-10dhc7s-0").each(function(index, element) {
+		if(index == 1) {
+			element.click();
+			return;
+		}
+	});
 	$$(".bBcNle").click();
 	$$("span.cmc-currency-picker--label").each(function(index, element) {
 		if(element.innerText == currency) {
@@ -93,8 +104,7 @@ function sendPrice(currency) {
 	let currentPrice = document.getElementsByClassName("priceValue___11gHJ")[0].innerText.substring(1);
 	ipc.send('newprice', currentPrice);
 }
-//wait for first price update
-//setTimeout(sendPrice, 15000);
+changeCurrency("USD");
 `;
 
 //open windows
@@ -102,8 +112,8 @@ app.whenReady().then(() => {
 	//hidden coinmarketcap window
 	if(config.apiKey == "") {
 		cmcWin = new BrowserWindow({
-			width: 2000,
-			height: 1000,
+			width: 480,
+			height: 320,
 			show: false,
 			webPreferences: {
 				nodeIntegration: true,

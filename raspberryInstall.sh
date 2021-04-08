@@ -14,6 +14,7 @@ mkdir -p $HOME/.config/autostart
 echo -e "[Desktop Entry]
 Name=SafemoonIndicator
 Exec=$HOME/SafemoonIndicator/SafemoonIndicator
+Path=$HOME/SafemoonIndicator/
 Icon=$HOME/SafemoonIndicator/resources/app/icon.png
 Type=Application
 " > $HOME/.config/autostart/SafemoonIndicator.desktop
