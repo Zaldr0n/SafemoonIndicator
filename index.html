@@ -3,94 +3,30 @@
 	<head>
 		<title>Safemoon status display</title>
 		<meta charset="UTF-8" />
-		<script>
-			const electron = require("electron");
-			const jQuery = require("./jquery.min.js")
-
-			function toFixed(x) {
-				if (Math.abs(x) < 1.0) {
-					var e = parseInt(x.toString().split('e-')[1]);
-					if (e) {
-						x *= Math.pow(10,e-1);
-						x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
-					}
-				} else {
-					var e = parseInt(x.toString().split('+')[1]);
-					if (e > 20) {
-						e -= 20;
-						x /= Math.pow(10,e);
-						x += (new Array(e+1)).join('0');
-					}
-				}
-				return x;
-			}
-
-			jQuery(() => {
-				electron.ipcRenderer.on('priceupdate', (event, price, currency) => {
-					var priceStr = String(toFixed(price));
-					if(priceStr.length > 12) priceStr = priceStr.substring(0, 12);
-					document.getElementById("price_" + currency).innerText = priceStr;
-				});
-			});
-		</script>
-		<style type="text/css">
-			body {
-				height: 100vh;
-				padding: 0;
-				margin: 0;
-				position: relative;
-				background: rgb(22,22,22);
-				background: linear-gradient(135deg, rgba(22,22,22,1) 0%, rgba(40,40,40,1) 100%);
-				cursor: none;
-			}
-			#main {
-				position: absolute;
-				top: calc(50% - 160px);
-				left: calc(50% - 240px);
-				width: 480px;
-				height: 320px;
-				text-align: center;
-			}
-			#icon {
-				padding: 20px;
-			}
-			#icon img {
-				margin: 0 auto;
-				width: 150px;
-			}
-			#prices {
-				color: white;
-				font-size: 30px;
-			}
-			#prices h1 {
-				padding: 0;
-				margin: 0;
-				margin-bottom: 10px;
-			}
-			.price {
-				display: inline-block;
-			}
-			.spacer {
-				display: inline-block;
-				width: 70px;
-				height: 1px;
-			}
-		</style>
+		<link rel="stylesheet" href="style.css" />
+		<script type="text/javascript" src="Chart.js"></script>
+		<script type="text/javascript" src="index.js"></script>
 	</head>
-	<body>
+	<body onload="drawChart();">
 		<div id="main">
 			<div id="icon">
 				<img src="icon.png" />
 			</div>
+			<div id="chartContainer">
+				<canvas id="chart"></canvas>
+			</div>
 			<div id="prices">
 				<div class="price">
-					<h1>€</h1>
-					<div id="price_EUR">retrieving</div>
+					<div class="price_symbol">€</div>
+					<div class="price_data">
+						<div id="price_EUR">retrieving</div>
+					</div>
 				</div>
-				<div class="spacer"></div>
 				<div class="price">
-					<h1>$</h1>
-					<div id="price_USD">retrieving</div>
+					<div class="price_symbol">$</div>
+					<div class="price_data">
+						<div id="price_USD">retrieving</div>
+					</div>
 				</div>
 			</div>
 		</div>
